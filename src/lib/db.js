@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, query, orderBy, getDocs, addDoc, doc, setDoc, deleteDoc } from 'firebase/firestore';
+import { getFirestore, collection, query, orderBy, getDocs, addDoc, doc, setDoc, deleteDoc, updateDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyA-__4QwEgONxhdHMzW7SD4eRj0BmLwIEs",
