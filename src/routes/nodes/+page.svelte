@@ -1,14 +1,14 @@
 <script>
-    import { sensors } from "$lib/stores/sensors.js";
+    import { nodes } from "$lib/stores/nodes.js";
 
     let selectedLocation = "all";
     let selectedStatus = "all";
 
     const statuses = ["all", "online", "offline", "maintenance"];
 
-    $: filteredSensors = $sensors.filter((sensor) => {
+    $: filterednodes = $nodes.filter((node) => {
         const matchesStatus =
-            selectedStatus === "all" || sensor.status === selectedStatus;
+            selectedStatus === "all" || node.status === selectedStatus;
         return matchesStatus;
     });
 
@@ -39,53 +39,53 @@
         </div>
     </div>
 
-    <div class="sensors-grid">
-        {#each filteredSensors as sensor (sensor.id)}
-            <div class="sensor-card">
-                <div class="sensor-header">
+    <div class="nodes-grid">
+        {#each filterednodes as node (node.id)}
+            <div class="node-card">
+                <div class="node-header">
                     <div>
-                        <h3 class="sensor-name">{sensor.name}</h3>
-                        <p class="sensor-model">{sensor.model}</p>
+                        <h3 class="node-name">{node.name}</h3>
+                        <p class="node-model">{node.model}</p>
                     </div>
-                    <div class="sensor-status">
-                        <span class={`status-dot ${sensor.status}`}></span>
-                        <span class="status-text">{sensor.status}</span>
+                    <div class="node-status">
+                        <span class={`status-dot ${node.status}`}></span>
+                        <span class="status-text">{node.status}</span>
                     </div>
                 </div>
 
-                <div class="sensor-details">
-                    <div class="sensor-detail">
+                <div class="node-details">
+                    <div class="node-detail">
                         <div class="detail-label">Last Activity:</div>
                         <div class="detail-value">
-                            {formatDate(sensor.lastActivity)}
+                            {formatDate(node.lastActivity)}
                         </div>
                     </div>
-                    <div class="sensor-detail">
+                    <div class="node-detail">
                         <div class="detail-label">Battery:</div>
-                        <div class="detail-value">{sensor.batteryLevel}%</div>
+                        <div class="detail-value">{node.batteryLevel}%</div>
                     </div>
-                    <div class="sensor-detail">
+                    <div class="node-detail">
                         <div class="detail-label">Alerts:</div>
-                        <div class="detail-value">{sensor.alerts}</div>
+                        <div class="detail-value">{node.alerts}</div>
                     </div>
                 </div>
 
-                <div class="sensor-capabilities">
-                    {#if sensor.capabilities.video}
+                <div class="node-capabilities">
+                    {#if node.capabilities.video}
                         <span class="capability-badge">Video</span>
                     {/if}
-                    {#if sensor.capabilities.audio}
+                    {#if node.capabilities.audio}
                         <span class="capability-badge">Audio</span>
                     {/if}
-                    {#if sensor.capabilities.motion}
+                    {#if node.capabilities.motion}
                         <span class="capability-badge">Motion</span>
                     {/if}
-                    {#if sensor.capabilities.psychic}
+                    {#if node.capabilities.psychic}
                         <span class="capability-badge">Psychic</span>
                     {/if}
                 </div>
 
-                <div class="sensor-actions">
+                <div class="node-actions">
                     <button>Configure</button>
                     <button>View Data</button>
                 </div>
@@ -95,14 +95,14 @@
 </div>
 
 <style>
-    .sensors-grid {
+    .nodes-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 1.25rem;
         margin-top: 1rem;
     }
 
-    .sensor-card {
+    .node-card {
         background-color: #1a1a1a;
         border: 1px solid #2a2a2a;
         border-radius: 4px;
@@ -112,38 +112,38 @@
             box-shadow 0.2s;
     }
 
-    .sensor-card:hover {
+    .node-card:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
-    .sensor-header {
+    .node-header {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
         margin-bottom: 1rem;
     }
 
-    .sensor-name {
+    .node-name {
         font-size: 1.1rem;
         font-weight: 500;
         margin: 0;
         color: #e0e0e0;
     }
 
-    .sensor-location {
+    .node-location {
         font-size: 0.85rem;
         color: #909090;
         margin: 0.25rem 0 0 0;
     }
 
-    .sensor-model {
+    .node-model {
         font-size: 0.75rem;
         color: #707070;
         margin: 0.25rem 0 0 0;
     }
 
-    .sensor-status {
+    .node-status {
         display: flex;
         align-items: center;
         gap: 6px;
@@ -176,14 +176,14 @@
         padding-left: 4px;
     }
 
-    .sensor-details {
+    .node-details {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
         margin: 1rem 0;
     }
 
-    .sensor-detail {
+    .node-detail {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -200,7 +200,7 @@
         color: #909090;
     }
 
-    .sensor-capabilities {
+    .node-capabilities {
         display: flex;
         flex-wrap: wrap;
         gap: 0.5rem;
@@ -215,7 +215,7 @@
         border-radius: 3px;
     }
 
-    .sensor-actions {
+    .node-actions {
         display: flex;
         justify-content: flex-end;
         gap: 0.5rem;
@@ -224,7 +224,7 @@
         padding-top: 1rem;
     }
 
-    .sensor-actions button {
+    .node-actions button {
         background-color: transparent;
         border: 1px solid #373737;
         color: #d0d0d0;
@@ -234,7 +234,7 @@
         transition: all 0.2s;
     }
 
-    .sensor-actions button:hover {
+    .node-actions button:hover {
         background-color: #303030;
     }
 

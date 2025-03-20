@@ -12,12 +12,12 @@
         <div class="status-metrics">
             <div class="metric">
                 <div class="metric-value">
-                    {$systemStatus.sensors.online}/{$systemStatus.sensors
+                    {$systemStatus.nodes.online}/{$systemStatus.nodes
                         .online +
-                        $systemStatus.sensors.offline +
-                        $systemStatus.sensors.maintenance}
+                        $systemStatus.nodes.offline +
+                        $systemStatus.nodes.maintenance}
                 </div>
-                <div class="metric-label">Sensors Online</div>
+                <div class="metric-label">nodes Online</div>
             </div>
             <div class="metric">
                 <div class="metric-value">{$systemStatus.coverage}%</div>

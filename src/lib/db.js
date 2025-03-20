@@ -11,7 +11,6 @@ const firebaseConfig = {
   measurementId: "G-G7WBVXSLRN"
 };
 
-
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 
@@ -48,42 +47,35 @@ export async function removeAlert(id) {
   await deleteDoc(alertDocRef);
 }
 
-export async function getSortedSensors() {
-  const sensorsRef = collection(db, 'sensors');
-  const q = query(sensorsRef, orderBy('lastActivity', 'desc'));
+export async function getSortednodes() {
+  const nodesRef = collection(db, 'nodes');
+  const q = query(nodesRef, orderBy('lastActivity', 'desc'));
   const querySnapshot = await getDocs(q);
-  const sensors = [];
+  const nodes = [];
   querySnapshot.forEach((doc) => {
-    sensors.push({ _id: doc.id, ...doc.data() });
+    nodes.push({ _id: doc.id, ...doc.data() });
   });
-  return sensors;
+  return nodes;
 }
 
-export async function addSensor(sensor) {
-  const sensorsRef = collection(db, 'sensors');
-  if (!sensor._id) {
-    const docRef = await addDoc(sensorsRef, sensor);
+export async function addnode(node) {
+  const nodesRef = collection(db, 'nodes');
+  if (!node._id) {
+    const docRef = await addDoc(nodesRef, node);
     return { id: docRef.id };
   } else {
-    const sensorDocRef = doc(db, 'sensors', sensor._id);
-    await setDoc(sensorDocRef, sensor, { merge: true });
-    return { id: sensor._id };
+    const nodeDocRef = doc(db, 'nodes', node._id);
+    await setDoc(nodeDocRef, node, { merge: true });
+    return { id: node._id };
   }
 }
 
-export async function updateSensor(id, updates) {
-  const sensorDocRef = doc(db, 'sensors', id);
-  await setDoc(sensorDocRef, updates, { merge: true });
+export async function updatenode(id, updates) {
+  const nodeDocRef = doc(db, 'nodes', id);
+  await setDoc(nodeDocRef, updates, { merge: true });
 }
 
-export async function removeSensor(id) {
-  const sensorDocRef = doc(db, 'sensors', id);
-  await deleteDoc(sensorDocRef);
+export async function removenode(id) {
+  const nodeDocRef = doc(db, 'nodes', id);
+  await deleteDoc(nodeDocRef);
 }
-
-window.addAlert = addAlert;
-window.updateAlert = updateAlert;
-window.removeAlert = removeAlert;
-window.addSensor = addSensor;
-window.updateSensor = updateSensor;
-window.removeSensor = removeSensor;

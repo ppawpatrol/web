@@ -1,16 +1,16 @@
 <script>
     import { onMount } from "svelte";
-    import { sensors } from "$lib/stores/sensors.js";
+    import { nodes } from "$lib/stores/nodes.js";
 
     let mapElement;
     let selectedStatus = "all";
 
     const statuses = ["all", "online", "offline", "maintenance"];
 
-    $: filteredSensors =
+    $: filterednodes =
         selectedStatus === "all"
-            ? $sensors
-            : $sensors.filter((sensor) => sensor.status === selectedStatus);
+            ? $nodes
+            : $nodes.filter((node) => node.status === selectedStatus);
 
     function getSectorCoordinates(sectorName) {
         let coords = { x: 0, y: 0 };
@@ -37,12 +37,12 @@
         return { x: xPercent, y: yPercent };
     }
 
-    function getStatusClass(sensor) {
-        if (sensor.status === "offline") return "offline";
-        if (sensor.alerts > 0) return "active";
-        if (sensor.batteryLevel < 30 && sensor.batteryLevel > 0)
+    function getStatusClass(node) {
+        if (node.status === "offline") return "offline";
+        if (node.alerts > 0) return "active";
+        if (node.batteryLevel < 30 && node.batteryLevel > 0)
             return "warning";
-        if (sensor.status === "maintenance") return "warning";
+        if (node.status === "maintenance") return "warning";
         return "normal";
     }
 </script>
@@ -65,20 +65,20 @@
     <div class="map-container">
         <div class="map-placeholder" bind:this={mapElement}>
             <div class="map-overlay">
-                {#each filteredSensors as sensor}
-                    {@const coords = getSectorCoordinates(sensor.name)}
+                {#each filterednodes as node}
+                    {@const coords = getSectorCoordinates(node.name)}
                     {@const position = getPercentPosition(coords)}
-                    {@const statusClass = getStatusClass(sensor)}
+                    {@const statusClass = getStatusClass(node)}
 
                     <div
                         class="sector {statusClass}"
                         style="left: {position.x}%; top: {position.y}%;"
                     >
                         <span class="sector-tooltip tooltip-right">
-                            <strong>{sensor.name}</strong>
-                            <br />Status: {sensor.status}
-                            <br />Battery: {sensor.batteryLevel}%
-                            <br />Alerts: {sensor.alerts}
+                            <strong>{node.name}</strong>
+                            <br />Status: {node.status}
+                            <br />Battery: {node.batteryLevel}%
+                            <br />Alerts: {node.alerts}
                         </span>
                     </div>
                 {/each}
