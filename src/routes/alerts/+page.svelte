@@ -1,6 +1,6 @@
 <script>
     import { alerts } from "$lib/stores/alerts.js";
-    import { resolveAlert } from "$lib/db";
+    import { resolveAlert, respondToAlert } from "$lib/db";
     let filterSeverity = "all";
     let filterStatus = "all";
 
@@ -14,6 +14,14 @@
                 filterStatus === "all" ||
                 alert.status.toLowerCase() === filterStatus.toLowerCase(),
         );
+
+    async function respondAlert(alert) {
+        try {
+            await respondToAlert(alert._id);
+        } catch (error) {
+            console.error("Failed to respond to alert:", error);
+        }
+    }
 
     async function markResolved(alert) {
         try {
@@ -108,7 +116,13 @@
                 </div>
                 <div class="alert-actions">
                     <button class="action-button">View Details</button>
-                    <button class="action-button">Respond</button>
+                    {#if alert.status.toLowerCase() === "active"}
+                        <button
+                            class="action-button"
+                            on:click={() => respondAlert(alert)}
+                            >Respond</button
+                        >
+                    {/if}
                     {#if alert.status.toLowerCase() !== "resolved"}
                         <button
                             class="action-button"

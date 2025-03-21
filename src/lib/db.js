@@ -111,7 +111,7 @@ export async function removenode(id) {
  *   nodeId: "4gYY772ACO...", 
  *   timestamp: "2025-03-18T11:15:40Z",
  *   type: "Sound Detected",
- *   status: "Active",
+ *   status: "active",
  *   details: "Multiple noises detected",
  *   ...
  * }
@@ -187,3 +187,37 @@ export async function resolveAlert(alertId) {
     });
   });
 }
+
+/*
+  * respondToAlert(alertId)
+  * Responds to an alert (sets status = "investigating").
+  * 
+  * @param {string} alertId - Firestore doc ID of the alert to respond to
+  */
+ export async function respondToAlert(alertId) {
+  if (!alertId) {
+    throw new Error('alertId is required to resolve an alert.');
+  }
+
+  await runTransaction(db, async (transaction) => {
+    const alertRef = doc(db, 'alerts', alertId);
+    const alertSnap = await transaction.get(alertRef);
+
+    if (!alertSnap.exists()) {
+      throw new Error(`Alert with ID "${alertId}" does not exist`);
+    }
+
+    const alertData = alertSnap.data();
+    if (!alertData.nodeId) {
+      throw new Error(
+        `Alert "${alertId}" does not have a nodeId field; cannot decrement node alert count.`
+      );
+    }
+
+    if (alertData.status === 'investigating') {
+      throw new Error(`Alert "${alertId}" is already under investigation.`);
+    }
+
+    transaction.update(alertRef, { status: 'investigating' });
+  });
+ }

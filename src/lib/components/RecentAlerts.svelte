@@ -1,6 +1,15 @@
 <script>
     import { alerts } from "$lib/stores/alerts.js";
-    $: recentAlerts = $alerts.slice(0, 3);
+    import { respondToAlert } from "$lib/db";
+    $: recentAlerts = $alerts.slice(0, 4);
+
+    async function respondAlert(alert) {
+        try {
+            await respondToAlert(alert._id);
+        } catch (error) {
+            console.error("Failed to respond to alert:", error);
+        }
+    }
 </script>
 
 <h2>Recent Alerts</h2>
@@ -38,7 +47,12 @@
             </div>
             <div class="column-actions">
                 <a href="/alerts" class="action-button">View</a>
-                <button class="action-button">Respond</button>
+                {#if alert.status.toLowerCase() === "active"}
+                    <button
+                        class="action-button"
+                        on:click={() => respondAlert(alert)}>Respond</button
+                    >
+                {/if}
             </div>
         </div>
     {/each}
