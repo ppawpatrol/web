@@ -19,9 +19,6 @@
 	"dependencies": {
 		"chart.js": "^4.4.8",
 		"events": "^3.3.0",
-		"firebase": "^11.4.0",
-		"pouchdb-browser": "^9.0.0",
-		"pouchdb-node": "^9.0.0",
-		"pouchdb-server": "^4.2.0"
+		"firebase": "^11.4.0"
 	}
 }
