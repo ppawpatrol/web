@@ -35,7 +35,7 @@
             <div
                 class="node-dot {statusClass}"
                 style="left: {position.x}%; top: {position.y}%;"
-                title="{node.name} - {node.status}"
+                title="{node.name}"
             ></div>
         {/each}
     </div>
@@ -94,28 +94,30 @@
         background-color: #232323;
         border-radius: 4px;
         position: relative;
-        height: 160px;
+        height: 75%;
         overflow: hidden;
         margin-bottom: 0.75rem;
     }
 
     .node-dot {
         position: absolute;
-        width: 8px;
-        height: 8px;
+        width: 11px;
+        height: 11px;
         border-radius: 50%;
         transform: translate(-50%, -50%);
         transition: transform 0.2s;
+        margin-top: 0.75em;
     }
 
     .node-dot:hover {
-        transform: translate(-50%, -50%) scale(1.5);
+        transform: translate(-50%, -50%) scale(1.3);
         z-index: 10;
     }
 
     .node-dot.active {
         background-color: #f44336;
         box-shadow: 0 0 5px rgba(244, 67, 54, 0.5);
+        /* animation: pulse-red 2s infinite; */
     }
 
     .node-dot.warning {
@@ -153,8 +155,8 @@
 
     .legend-dot {
         display: inline-block;
-        width: 6px;
-        height: 6px;
+        width: 8px;
+        height: 8px;
         border-radius: 50%;
     }
 

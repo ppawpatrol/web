@@ -62,6 +62,28 @@
 </div>
 
 <style>
+    .alerts-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+    }
+
+    .table-header,
+    .table-row {
+        display: grid;
+        grid-template-columns: 0.8fr 1fr 1.2fr 1.2fr 1fr 1.5fr;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #2a2a2a;
+        align-items: center;
+    }
+
+    .table-header {
+        color: #909090;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
     .column-actions a:hover {
         color: #fff;
     }
