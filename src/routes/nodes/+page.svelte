@@ -40,7 +40,7 @@
     </div>
 
     <div class="nodes-grid">
-        {#each filterednodes as node (node.id)}
+        {#each filterednodes as node, i (i)}
             <div class="node-card">
                 <div class="node-header">
                     <div>

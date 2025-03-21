@@ -1,5 +1,6 @@
 <script>
     import { alerts } from "$lib/stores/alerts.js";
+    import { resolveAlert } from "$lib/db";
     let filterSeverity = "all";
     let filterStatus = "all";
 
@@ -14,8 +15,12 @@
                 alert.status.toLowerCase() === filterStatus.toLowerCase(),
         );
 
-    function markResolved(alert) {
-        alerts.update(alert._id, { status: "Resolved" });
+    async function markResolved(alert) {
+        try {
+            await resolveAlert(alert._id);
+        } catch (error) {
+            console.error("Failed to resolve alert:", error);
+        }
     }
 </script>
 

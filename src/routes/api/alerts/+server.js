@@ -1,6 +1,6 @@
 import { json } from '@sveltejs/kit';
-import { db } from '$lib/db';
-import { collection, doc, getDocs, addDoc, updateDoc, deleteDoc } from 'firebase/firestore';
+import { db, createAlertWithTransaction } from '$lib/db';
+import { collection, doc, getDocs, updateDoc, deleteDoc } from 'firebase/firestore';
 
 const alertsRef = collection(db, 'alerts');
 
@@ -12,8 +12,8 @@ export async function GET() {
 
 export async function POST({ request }) {
   const alert = await request.json();
-  const docRef = await addDoc(alertsRef, alert);
-  return json({ _id: docRef.id }, { status: 201 });
+  await createAlertWithTransaction(alert);
+  return json({ message: 'Alert created successfully.' }, { status: 201 });
 }
 
 export async function PUT({ request }) {
