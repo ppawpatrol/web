@@ -27,10 +27,7 @@
             <span class="portal-label">web</span>
         </div>
         <div class="nav-links">
-            <a
-                href="/"
-                class:active={$page.url.pathname === "/"}>Dashboard</a
-            >
+            <a href="/" class:active={$page.url.pathname === "/"}>Dashboard</a>
             <a href="/map" class:active={$page.url.pathname === "/map"}>Map</a>
             <a href="/nodes" class:active={$page.url.pathname === "/nodes"}
                 >Nodes</a
@@ -38,18 +35,21 @@
             <a href="/alerts" class:active={$page.url.pathname === "/alerts"}
                 >Alerts</a
             >
-            <a href="/reports">Reports</a>
-            <a href="/settings">Settings</a>
+            <a
+                href="/analytics"
+                class:active={$page.url.pathname === "/analytics"}>Analytics</a
+            >
+            <a
+                href="/settings"
+                class:active={$page.url.pathname === "/settings"}>Settings</a
+            >
         </div>
-        <div class="right">
-
-        </div>
+        <div class="right"></div>
     </nav>
 </header>
 
 <main>
     <slot />
-    <!-- Page content will be inserted here -->
 </main>
 
 <footer>
