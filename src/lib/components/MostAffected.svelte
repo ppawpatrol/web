@@ -26,8 +26,8 @@
         .slice(0, 4);
 
     function getTintClass(count) {
-        if (count >= 5) return "severity-high";
-        if (count >= 2) return "severity-medium";
+        if (count > 10) return "severity-high";
+        if (count > 5) return "severity-medium";
         return "severity-low";
     }
 </script>

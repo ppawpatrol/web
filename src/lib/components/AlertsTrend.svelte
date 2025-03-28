@@ -56,7 +56,7 @@
                         fill: false,
                         borderColor: "#646cff",
                         backgroundColor: "#646cff",
-                        tension: 0.2,
+                        tension: 0,
                         pointRadius: 4,
                         pointBackgroundColor: "#646cff",
                     },

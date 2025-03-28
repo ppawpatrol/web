@@ -71,7 +71,7 @@
     .table-header,
     .table-row {
         display: grid;
-        grid-template-columns: 0.8fr 1fr 1.2fr 1.2fr 1fr 1.5fr;
+        grid-template-columns: 0.8fr 1fr 1.2fr 1.5fr 1fr 1.2fr;
         padding: 0.75rem 0;
         border-bottom: 1px solid #2a2a2a;
         align-items: center;
