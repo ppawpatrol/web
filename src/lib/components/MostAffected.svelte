@@ -4,7 +4,7 @@
 
     const now = new Date();
     const sevenDaysAgo = new Date(now);
-    sevenDaysAgo.setDate(now.getDate() - 7);
+    sevenDaysAgo.setDate(now.getDate() - 150);
 
     $: recentAlerts = $alerts.filter(
         (alert) => new Date(alert.timestamp) >= sevenDaysAgo,

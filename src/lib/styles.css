@@ -206,7 +206,7 @@ main {
 .most-affected {
   background-color: #1a1a1a;
   border: 1px solid #2a2a2a;
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 1rem;
   width: 15rem;
 }
