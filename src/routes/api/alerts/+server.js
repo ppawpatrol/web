@@ -25,8 +25,8 @@ export async function GET() {
  */
 export async function POST({ request }) {
   const alert = await request.json();
-  await createAlertWithTransaction(alert);
-  return json({ message: 'Alert created successfully.', id: alert.id }, { status: 201 });
+  const newId = await createAlertWithTransaction(alert);
+  return json({ message: 'Alert created successfully.', id: newId }, { status: 201 });
 }
 
 /**

@@ -121,7 +121,7 @@ export async function createAlertWithTransaction(alert) {
     throw new Error('alert.nodeId is required to associate this alert with a node.');
   }
 
-  await runTransaction(db, async (transaction) => {
+  return await runTransaction(db, async (transaction) => {
     const alertsColRef = collection(db, 'alerts');
     const nodeRef = doc(db, 'nodes', alert.nodeId);
 
@@ -142,6 +142,8 @@ export async function createAlertWithTransaction(alert) {
     transaction.update(nodeRef, {
       alerts: increment(1)
     });
+    
+    return alertRef.id;
   });
 }
 
